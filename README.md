@@ -13,15 +13,12 @@ Quick Start
 
     $ git clone https://github.com/authlete/spring-resource-server.git
     $ mvn -U clean install
-	 $ docker-compose up
-
-    $ curl http://localhost:8081/api/userinfo -d access_token={access-token}
-    $ curl http://localhost:8081/api/country/{country-code} -d access_token={access-token}
+    $ docker-compose up
 
 Source Code
 -----------
 
-  <code>https://github.com/gizsar/bank-app</code>
+<code>https://github.com/gizsar/bank-app</code>
   
 
 Configuration File

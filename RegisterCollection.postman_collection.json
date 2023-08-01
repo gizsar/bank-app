@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "08a61b38-59ed-4cb7-a5b4-4cb1d1384ac6",
+		"name": "RegisterCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28821187"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n  { \r\n        \"name\": \"Gizem\",\r\n        \"address\": {\r\n            \"street\": \"Hoogstraat\",\r\n            \"city\": \"Eindhoven\",\r\n            \"zip_code\": \"5615PA\",\r\n            \"country\" : \"Netherlands\"\r\n            },\r\n        \"birthDate\": \"2018-03-29\",\r\n        \"id\": 3,\r\n        \"otp\": \"abc\",\r\n        \"username\": \"gizem\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/register"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/token?username=username&password=71150",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"token"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "username"
+						},
+						{
+							"key": "password",
+							"value": "71150"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "overview",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "Bearer 535d63ae-4d57-4b81-a714-751da26e04b5"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 535d63ae-4d57-4b81-a714-751da26e04b5",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/overview?documentId=ABC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"overview"
+					],
+					"query": [
+						{
+							"key": "documentId",
+							"value": "ABC"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Bank Application
+  description: 
+    Customer can register and open a new bank account using this RestAPI.
+    
+  contact:
+    email: gizemsariarslan@gmail.com
+  version: 1.0.0
+
+paths:
+  /register:
+    post:
+      tags:
+        - Registeration
+      summary: Create a bank user and account
+      description: Register customer with basic details - Name, Address, dob, ID document, username and OTP
+      operationId: register
+      requestBody:
+        description: Send customer info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer' 
+        '400':
+          description: Exception was occurred
+        '404':
+          description: OTP is not found
+        '406':
+          description: Customer doesn't live in a country which is allowed to open a bank account.
+
+  
+  /overview:
+    get:
+      tags:
+        - Account
+      summary: View customer's account
+      description: This can only be done by the logged in user.
+      operationId: overview
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '404':
+          description: Customer account is not found
+  
+  /login:
+    get:
+      tags:
+        - Customer
+      summary: Logs user into the system
+      description: ''
+      operationId: login
+      parameters:
+        - name: token
+          in: query
+          description: The user token for login
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Login successful
+        '404':
+          description: Invalid token
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: name
+        username:
+          type: string
+          example: username
+        documentId:
+          type: string
+          example: AB123456
+        address:
+            $ref: '#/components/schemas/Address'
+      xml:
+        name: customer
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: Edenstraat
+        city:
+          type: string
+          example: Eindhoven
+        country:
+          type: string
+          example: Netherlands
+        zip:
+          type: string
+          example: '1111AA'
+      xml:
+        name: address
+   
+    Account:
+      required:
+        - iban
+      type: object
+      properties:
+        customerId:
+          type: string
+          example: AB123456
+        iban:
+          type: string
+          example: NL12BANK123456789
+        balance:
+          type: number
+          format: double
+          example: 0
+        currency:
+          type: string
+          example: EURO
+        accountType:
+          type: string
+          description: account type
+          enum:
+            - normal
+            - saving
+      xml:
+        name: account
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
